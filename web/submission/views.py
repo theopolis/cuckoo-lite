@@ -27,21 +27,10 @@ def index(request):
         timeout = force_int(request.POST.get("timeout"))
         options = request.POST.get("options", "")
         priority = force_int(request.POST.get("priority"))
-        machine = request.POST.get("machine", "")
         custom = request.POST.get("custom", "")
         memory = bool(request.POST.get("memory", False))
         enforce_timeout = bool(request.POST.get("enforce_timeout", False))
         tags = request.POST.get("tags", None)
-
-        if request.POST.get("free"):
-            if options:
-                options += "&"
-            options += "free=yes"
-
-        if request.POST.get("process_memory"):
-            if options:
-                options += "&"
-            options += "procmemdump=yes"
 
         if "sample" in request.FILES:
             # Preventive checks.
@@ -63,7 +52,6 @@ def index(request):
                                   timeout=timeout,
                                   options=options,
                                   priority=priority,
-                                  machine=machine,
                                   custom=custom,
                                   memory=memory,
                                   enforce_timeout=enforce_timeout,
@@ -91,7 +79,6 @@ def index(request):
                                  timeout=timeout,
                                  options=options,
                                  priority=priority,
-                                 machine=machine,
                                  custom=custom,
                                  memory=memory,
                                  enforce_timeout=enforce_timeout,

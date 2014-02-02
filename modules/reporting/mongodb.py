@@ -92,7 +92,6 @@ class MongoDB(Report):
         # Store the sample in GridFS.
         if results["info"]["category"] == "file":
             sample = File(self.file_path)
-            print results.keys()
             if sample.valid():
                 fname = results["target"]["file"]["name"]
                 sample_id = self.store_file(sample, filename=fname)

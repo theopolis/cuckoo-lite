@@ -1,5 +1,0 @@
-pydeep.c
-pip-egg-info/pydeep.egg-info/PKG-INFO
-pip-egg-info/pydeep.egg-info/SOURCES.txt
-pip-egg-info/pydeep.egg-info/dependency_links.txt
-pip-egg-info/pydeep.egg-info/top_level.txt
