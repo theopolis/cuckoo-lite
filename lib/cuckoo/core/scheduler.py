@@ -328,6 +328,8 @@ class AnalysisManager(Thread):
         results = RunProcessing(task_id=self.task.id).run()
         '''No signatures in lite... yet.'''
         #RunSignatures(results=results).run()
+
+        results[""]
         RunReporting(task_id=self.task.id, results=results).run()
 
         # If the target is a file and the user enabled the option,

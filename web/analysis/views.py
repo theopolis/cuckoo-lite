@@ -23,6 +23,19 @@ from lib.cuckoo.core.database import Database, TASK_PENDING
 results_db = pymongo.connection.Connection(settings.MONGO_HOST, settings.MONGO_PORT).cuckoo
 fs = GridFS(results_db)
 
+def _get_name(task_id):
+    report = results_db.analysis.find_one({"info.id": int(task_id)}, sort=[("_id", pymongo.DESCENDING)])
+    if report is None:
+        return "NO NAME"
+    if not "target" in report or not "category" in report["target"]:
+        return "NO_NAME"
+    if report["target"]["category"] == "file":
+        if "file" in report["target"] and "name" in report["target"]["file"]:
+            return report["target"]["file"]["name"]
+        else: return "NO_NAME"
+    else:
+        return report["target"]["url"]
+
 @require_safe
 def index(request):
     db = Database()
@@ -39,6 +52,7 @@ def index(request):
             if db.view_errors(task.id):
                 new["errors"] = True
 
+            new["name"] = _get_name(task.id)
             analyses_files.append(new)
 
     if tasks_urls:
@@ -47,7 +61,7 @@ def index(request):
 
             if db.view_errors(task.id):
                 new["errors"] = True
-
+            new["name"] = _get_name(task.id)
             analyses_urls.append(new)
 
     return render_to_response("analysis/index.html",
@@ -212,7 +226,7 @@ def search(request):
 
         for result in records:
             new = db.view_task(result["info"]["id"])
-
+            
             if not new:
                 continue
 
@@ -223,7 +237,7 @@ def search(request):
                     sample = db.view_sample(new["sample_id"])
                     if sample:
                         new["sample"] = sample.to_dict()
-
+            new["name"] = _get_name(result["info"]["id"])
             analyses.append(new)
 
         return render_to_response("analysis/search.html",
