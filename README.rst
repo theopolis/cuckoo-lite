@@ -13,3 +13,4 @@ Django web interface and main Cuckoo scheduling loop.
 - mongodb (apt-get install python-pymogodb mongodb)
 - sqlalchemy (pip install sqlalchemy)
 - ssdeep and pydeep (apt-get install libfuzzy-dev && pip install pydeep)
+- python-pefile
