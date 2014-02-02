@@ -1,0 +1,10 @@
+Metadata-Version: 1.0
+Name: pydeep
+Version: 0.2
+Summary: Python bindings for ssdeep
+Home-page: http://www.github.com/kbandla/pydeep
+Author: Kiran Bandla
+Author-email: kbandla@in2void.com
+License: BSD
+Description: Python/C Wrapper for the ssdeep library
+Platform: UNKNOWN
